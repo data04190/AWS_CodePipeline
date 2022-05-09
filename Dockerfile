@@ -17,4 +17,4 @@ RUN pip install -r AWS_lambda_container/requirements.txt
 RUN cp AWS_lambda_container/lambda_function.py /var/task/
 
 # lambda_function.handler 실행
-CMD ["lambda_function.handler"]
+CMD ["lambda_function.lambda_handler"]
