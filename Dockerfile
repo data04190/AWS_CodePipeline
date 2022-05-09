@@ -14,7 +14,7 @@ RUN git clone https://github.com/data04190/AWS_lambda_container.git
 RUN pip install -r AWS_lambda_container/requirements.txt
 
 # git repository 의 lambda_function.py 를 Container 내부의 /var/task/ 로 이동
-RUN cp lambda-with-docker-container/lambda_function.py /var/task/
+RUN cp AWS_lambda_container/lambda_function.py /var/task/
 
 # lambda_function.handler 실행
 CMD ["lambda_function.handler"]
