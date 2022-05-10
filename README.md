@@ -2,6 +2,12 @@
 
 <br>
 
+- git clone
+```shell
+$ git clone https://github.com/data04190/AWS_lambda_container.git
+```
+<br>
+
 - AWS CLI 설치
 
 ```shell
