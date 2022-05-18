@@ -42,6 +42,19 @@ $ aws ecr get-login-password --region "ap-northeast-2" | docker login --username
 $ docker push $ACCOUNT_ID.dkr.ecr."ap-northeast-2".amazonaws.com/"[리포지토리명]"
 ```
 
+<Br><hr>
+
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running? 에러 발생시
+
+```shell
+sudo systemctl start docker  #시스템데몬(system daemon) 명령어로 docker를 시작
+sudo systemctl status docker   #도커의 상태를 확인  
+```
+
+
+
+
+
 
 
 
