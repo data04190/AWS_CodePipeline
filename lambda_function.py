@@ -19,3 +19,4 @@ print(df)
 
 def lambda_handler(event, context):
     print("test")
+    print(df)
