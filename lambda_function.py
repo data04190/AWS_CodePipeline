@@ -1,5 +1,7 @@
 import os
 import sys
+import boto3
+import json
 import pandas as pd
 import numpy as np
 from scipy import signal
