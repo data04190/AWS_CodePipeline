@@ -50,7 +50,13 @@ Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docke
 sudo systemctl start docker  #시스템데몬(system daemon) 명령어로 docker를 시작
 sudo systemctl status docker   #도커의 상태를 확인  
 ```
-
+<br>
+  
+- Docker image 삭제
+```shell
+$ docker rmi [IMAGE ID] -f   #특정 Image 삭제
+$ docker rmi $(docker images -a -q) -f  #Docker images 전부 삭제
+```
 
 
 
