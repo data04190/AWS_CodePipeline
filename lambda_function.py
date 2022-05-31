@@ -12,6 +12,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def lambda_handler(event, context):
     
+    #bucket_name = 'nmlt201021'
     n_channels = 16
     sampling_freq = 128  # in Hertz
     ch_names = ['Fp1', 'Fp2', 'C3', 'C4', 'P7', 'P8', 'O1', 'O2', 'F7', 'F8', 'T7', 'T8', 'F3', 'F4', 'P3', 'P4']
@@ -31,10 +32,7 @@ def lambda_handler(event, context):
 
     s3 = boto3.client('s3')
     resp = s3.get_object(Bucket=bucket_name, Key= file_name)
-    df = pd.read_csv(resp['Body'])
-    
-    #eeg_raw={}
-    temp_pd = df
+    temp_pd = pd.read_csv(resp['Body'])
     temp_pd=temp_pd.drop(columns=['Unnamed: 0','time','event'])
     temp_pd=temp_pd.drop(range(0,sampling_freq*5)) # remove first 5sec data
     
@@ -48,5 +46,30 @@ def lambda_handler(event, context):
     elif p_normalization == 2:
         temp_pd = (temp_pd - temp_pd.mean()) / temp_pd.std()
         
+    ## Task marking by filenames
+    temp_pd['Task']=0+1   
+    temp_pd['STM']=0
+    
+    for STM_i in range(0,temp_pd.shape[0],sampling_freq):
+        temp_pd['STM'].iat[STM_i] = temp_pd['Task'].iat[STM_i]  
         
-    print(temp_pd)
+    ## channels X times
+    temp_pd = temp_pd.transpose()
+    
+    
+    ## MNE object
+    info = mne.create_info(n_channels, sfreq=sampling_freq)
+    info = mne.create_info(all_ch_names, ch_types=all_ch_types, sfreq=sampling_freq)
+    info.set_montage('standard_1020')
+    
+    info['description'] = 'OpenBCI'
+    info['bads'] = []  # Names of bad channels
+
+    ## Filtering  
+    mne_raw = mne.io.RawArray(temp_pd, info)
+    data_lp_hp = mne_raw.filter(l_freq=60,h_freq=1,picks='eeg', method='fir')
+    mne_raw_filtered = data_lp_hp.copy().notch_filter(freqs=60, picks='eeg')
+    
+        
+    df = mne_raw_filtered.to_data_frame()
+    print(df)
