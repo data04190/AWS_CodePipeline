@@ -1,10 +1,10 @@
-# AWS_lambda_container
+# AWS_CodePipeline
 
 <br>
 
 - git clone
 ```shell
-$ git clone https://github.com/data04190/AWS_lambda_container.git
+$ git clone https://github.com/data04190/AWS_CodePipeline.git
 ```
 <br>
 
