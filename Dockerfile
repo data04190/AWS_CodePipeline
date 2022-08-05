@@ -8,13 +8,13 @@ RUN /var/lang/bin/python3.8 -m pip install --upgrade pip
 RUN yum install git -y
 
 # git clone
-RUN git clone https://github.com/data04190/AWS_lambda_container.git
+RUN git clone https://github.com/data04190/AWS_CodePipeline.git
 
 # install packages
-RUN pip install -r AWS_lambda_container/requirements.txt
+RUN pip install -r AWS_CodePipeline/requirements.txt
 
 # git repository 의 lambda_function.py 를 Container 내부의 /var/task/ 로 이동
-RUN cp AWS_lambda_container/lambda_function.py /var/task/
+RUN cp AWS_CodePipeline/lambda_function.py /var/task/
 
 # lambda_function.handler 실행
 CMD ["lambda_function.lambda_handler"]
