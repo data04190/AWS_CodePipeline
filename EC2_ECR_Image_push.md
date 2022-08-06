@@ -1,4 +1,4 @@
-# AWS_CodePipeline
+# EC2_ECR_Image_push
 
 <br>
 
